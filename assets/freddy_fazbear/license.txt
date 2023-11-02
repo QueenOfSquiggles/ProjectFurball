@@ -1,0 +1,11 @@
+Model Information:
+* title:	Freddy Fazbear ...
+* source:	https://sketchfab.com/3d-models/freddy-fazbear-ba9d51bcfdb94ca7a0f0fc6b96a9baac
+* author:	fnaf fan (https://sketchfab.com/lysenkooleksandr69)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Freddy Fazbear ..." (https://sketchfab.com/3d-models/freddy-fazbear-ba9d51bcfdb94ca7a0f0fc6b96a9baac) by fnaf fan (https://sketchfab.com/lysenkooleksandr69) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

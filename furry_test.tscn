@@ -1,0 +1,411 @@
+[gd_scene load_steps=35 format=3 uid="uid://spa0gq0p0yae"]
+
+[ext_resource type="Script" path="res://CameraPivot.gd" id="1_aswlj"]
+[ext_resource type="Texture2D" uid="uid://dy0cy2fwpadcl" path="res://assets/meadow_2_2k.exr" id="1_v2qba"]
+[ext_resource type="Material" uid="uid://bf08b84yxe83k" path="res://assets/materials/furry_material.tres" id="2_m4hcj"]
+[ext_resource type="Script" path="res://scenes/FurryGen.cs" id="3_l014l"]
+[ext_resource type="PackedScene" uid="uid://b0gm6b8ke18wi" path="res://assets/kindred_lol/kindred_lol_rig_strip.glb" id="4_lqpjp"]
+[ext_resource type="Script" path="res://test_anim.gd" id="5_lguf5"]
+[ext_resource type="Shader" path="res://assets/materials/furry_material.gdshader" id="6_napie"]
+[ext_resource type="Texture2D" uid="uid://x52im03hlhsp" path="res://assets/fuzzy_fur_gradient.tres" id="7_6dxf8"]
+[ext_resource type="Script" path="res://fps_label.gd" id="9_iaia7"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u82sf"]
+panorama = ExtResource("1_v2qba")
+
+[sub_resource type="Sky" id="Sky_jm3wi"]
+sky_material = SubResource("PanoramaSkyMaterial_u82sf")
+
+[sub_resource type="Environment" id="Environment_86ilm"]
+background_mode = 2
+background_energy_multiplier = 0.3
+sky = SubResource("Sky_jm3wi")
+ambient_light_energy = 0.45
+reflected_light_source = 2
+tonemap_mode = 3
+ssao_enabled = true
+glow_enabled = true
+glow_normalized = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lvqrf"]
+top_radius = 6.0
+bottom_radius = 6.0
+height = 0.1
+cap_bottom = false
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1iog8"]
+points = PackedVector3Array(1.14174, 0.235677, 6.09405, -1.14174, -0.145201, -6.09405, -1.90409, -0.145201, -5.90316, -1.14174, 0.235677, -6.09405, 6.09405, -0.145201, -1.14174, -5.33169, -0.145201, 3.23672, -6.09405, 0.235677, -1.14174, 5.33169, 0.235677, -3.23672, 3.80818, -0.145201, 4.95111, 5.71227, 0.235677, 2.47556, -4.95111, 0.235677, 3.80818, -1.90409, -0.145201, 5.90316, -5.33169, -0.145201, -3.23672, 3.23672, -0.145201, -5.33169, -3.80818, 0.235677, -4.95111, 1.90409, 0.235677, -5.90316, -6.09405, -0.145201, 1.14174, -3.23672, 0.235677, 5.33169, 5.71227, -0.145201, 2.47556, 3.80818, 0.235677, 4.95111, 1.14174, -0.145201, 6.09405, 6.09405, 0.235677, 1.14174, -5.90316, 0.235677, 1.90409, 4.95111, -0.145201, -3.80818, 3.80818, 0.235677, -4.95111, -3.80818, -0.145201, 4.95111, 1.14174, -0.145201, -6.09405, -1.14174, 0.235677, 6.09405, -5.33169, 0.235677, -3.23672, -3.80818, -0.145201, -4.95111, -6.09405, -0.145201, -1.14174, 6.09405, 0.235677, -1.14174)
+
+[sub_resource type="Curve" id="Curve_t101j"]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1rno5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6w4nn"]
+height = 3.53082
+
+[sub_resource type="Animation" id="Animation_hlyy3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FurTargets:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_uyy2b"]
+resource_name = "ShakeAnim"
+length = 14.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FurTargets:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 4.5, 6, 6.5, 8, 8.5, 9.5, 10, 11.5, 12, 13.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(-1.18398, 0, 0), Vector3(-1.18398, 0, 0), Vector3(0.977248, 0, 0), Vector3(0.977248, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 1.22516, 0), Vector3(0, 1.22516, 0), Vector3(0, -1.225, 0), Vector3(0, -1.225, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d6eud"]
+_data = {
+"RESET": SubResource("Animation_hlyy3"),
+"ShakeAnim": SubResource("Animation_uyy2b")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ckbix"]
+render_priority = 0
+shader = ExtResource("6_napie")
+shader_parameter/density = 128.0
+shader_parameter/taper_power = -1.0
+shader_parameter/test_geometry = false
+shader_parameter/taper_alpha = ExtResource("7_6dxf8")
+
+[sub_resource type="Curve" id="Curve_d1ri6"]
+_data = [Vector2(0, 1), 0.0, -3.19437, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.773852, 1), -0.101799, -0.101799, 0, 0, Vector2(1, 0), -0.112126, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_psvs0"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gmpbg"]
+points = PackedVector3Array(0.457871, 0.198079, 0.0157824, -0.48874, -0.0916874, -0.0451868, -0.471509, -0.137027, -0.0907015, 0.0763591, -0.333275, 0.364179, 0.136569, -0.332425, -0.346906, -0.151617, 0.471982, -0.0602459, -0.105347, 0.211936, 0.43966, -0.0450169, 0.198098, -0.456416, 0.409077, -0.151168, 0.242516, -0.271376, -0.377761, 0.181871, 0.41148, -0.075981, -0.27324, 0.198197, -0.456161, -0.044931, -0.240641, -0.331674, -0.285768, 0.227137, 0.25672, 0.363041, 0.227522, 0.423604, -0.135488, -0.37899, 0.0607022, 0.319462, -0.406747, 0.181049, -0.225691, -0.0146313, -0.0917695, 0.490229, -0.377855, 0.302793, 0.121712, 0.0462323, 0.456011, 0.198185, -0.227464, -0.0607863, -0.440348, 0.228455, 0.0607228, -0.439887, -0.0911376, -0.489246, -0.045174, 0.441865, -0.228216, -0.0449581, 0.317179, 0.241214, -0.300812, -0.0448487, 0.394737, -0.302955, -0.316348, -0.196222, 0.332551, 0.198442, -0.0304293, 0.457237, 0.0614714, -0.152246, -0.471307, 0.363089, 0.256708, 0.227079, 0.152134, -0.439489, 0.182379, -0.210725, 0.362276, 0.27223)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4v3i"]
+render_priority = 0
+shader = ExtResource("6_napie")
+shader_parameter/density = 64.0
+shader_parameter/taper_power = 2.0
+shader_parameter/test_geometry = false
+shader_parameter/taper_alpha = ExtResource("7_6dxf8")
+
+[sub_resource type="Curve" id="Curve_eyl04"]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.14052, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_l4j0v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62c11"]
+render_priority = 0
+shader = ExtResource("6_napie")
+shader_parameter/density = 128.0
+shader_parameter/taper_power = 2.0
+shader_parameter/test_geometry = false
+shader_parameter/taper_alpha = ExtResource("7_6dxf8")
+
+[sub_resource type="Curve" id="Curve_suv88"]
+_data = [Vector2(0, 1), 0.0, -5.73465, 0, 0, Vector2(1, 0), -4.47914, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_hdtaw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wesij"]
+render_priority = 0
+shader = ExtResource("6_napie")
+shader_parameter/density = 1024.0
+shader_parameter/taper_power = 1.0
+shader_parameter/test_geometry = false
+shader_parameter/taper_alpha = ExtResource("7_6dxf8")
+
+[sub_resource type="Curve" id="Curve_mekxr"]
+_data = [Vector2(0, 1), 0.0, -1.81094, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_xlwkm"]
+font_size = 31
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rmy41"]
+font_size = 22
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Furry Test" type="Node3D"]
+
+[node name="LevelStuff" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LevelStuff"]
+environment = SubResource("Environment_86ilm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LevelStuff"]
+transform = Transform3D(0.838671, 0.286192, -0.463385, 7.43803e-08, 0.850811, 0.525472, 0.544639, -0.440698, 0.71355, 0, 7.07998, 0)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 50.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelStuff"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelStuff/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42092, 0)
+mesh = SubResource("CylinderMesh_lvqrf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelStuff/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42092, 0)
+shape = SubResource("ConvexPolygonShape3D_1iog8")
+
+[node name="Labels" type="Node3D" parent="LevelStuff"]
+
+[node name="Label3D4" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(0.999698, 0.0245718, 1.07407e-09, 0, -4.37114e-08, 1, 0.0245718, -0.999698, -4.36982e-08, 0.0403276, -1.18024, -4.53448)
+double_sided = false
+alpha_cut = 1
+text = "Kindred model by 
+\"maisth\" on Sketchfab (CC-BY 4.0)"
+font_size = 67
+outline_size = 17
+
+[node name="Label3D5" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(-0.510693, -0.859763, -3.75814e-08, -8.72967e-17, -4.37114e-08, 1, -0.859763, 0.510693, 2.23231e-08, -3.3469, -1.18024, 1.91513)
+double_sided = false
+alpha_cut = 1
+text = "Submission for
+\"The Acerola Furry Challenge\"
+by Queen Of Squiggles"
+font_size = 67
+outline_size = 17
+
+[node name="Label3D6" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(-1, 1.85078e-08, 8.74704e-08, -8.63605e-08, 0.0532597, -0.998581, -2.31402e-08, -0.998581, -0.0532597, -0.0465357, 0.0498487, -0.186038)
+pixel_size = 0.0005
+double_sided = false
+alpha_cut = 1
+text = "What are you doing back here????
+Pervert!"
+font_size = 48
+
+[node name="Label3D7" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -1.18024, 0.66635)
+double_sided = false
+alpha_cut = 1
+text = "Main character
+configured for quality
+not optimized"
+font_size = 48
+
+[node name="Label3D8" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(0.854912, 0.0425466, -0.517025, 0, 0.996631, 0.082014, 0.518773, -0.0701148, 0.852032, 5.95567, 2.81364, -6.46707)
+double_sided = false
+alpha_cut = 1
+text = "Shell layers are automatically generated on indivudual surface layers.
+
+Custom fur layers are best, but this is what an unconfigured fur surface could look like"
+font_size = 103
+outline_size = 97
+horizontal_alignment = 2
+autowrap_mode = 3
+width = 1500.0
+
+[node name="Label3D9" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(-0.325568, 0.0281216, -0.9451, 0, 0.999558, 0.029742, 0.945518, 0.00968304, -0.325424, 5.05693, 1.91941, 4.01777)
+double_sided = false
+alpha_cut = 1
+text = "Strand stiffness is affected by a curve resource which allows configuration of different strand behaviour"
+font_size = 56
+outline_size = 39
+horizontal_alignment = 0
+autowrap_mode = 3
+width = 1000.0
+
+[node name="Label3D10" type="Label3D" parent="LevelStuff/Labels"]
+transform = Transform3D(0.969231, -0.0499349, 0.241034, 0, 0.979207, 0.202862, -0.246152, -0.19662, 0.949078, -8.54, 1.915, -2.308)
+double_sided = false
+alpha_cut = 1
+text = "Strand thickness is affected by a power function, which allows negative values. Different values can drastically change the appearance of the \"fur\""
+font_size = 65
+outline_size = 53
+horizontal_alignment = 0
+autowrap_mode = 3
+width = 1000.0
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="LevelStuff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23726, 0)
+size = Vector3(12.6794, 3.67773, 12.1033)
+enable_shadows = true
+
+[node name="CameraPivot" type="Node3D" parent="." node_paths=PackedStringArray("target_puppet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516855, 0)
+script = ExtResource("1_aswlj")
+mouse_speed = 1.0
+zoom_speed = 0.415
+target_puppet = NodePath("../FurTargets")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="FurGenerator" type="Node3D" parent="." node_paths=PackedStringArray("_rootTarget")]
+script = ExtResource("3_l014l")
+_rootTarget = NodePath("../FurTargets/kindred_lol_rig_strip")
+_shellCount = 128.0
+_surfaceTargets = PackedInt32Array(6)
+_furMaterial = ExtResource("2_m4hcj")
+_furBaseColour = Color(0.811765, 0.729412, 0.964706, 1)
+_furTipColour = Color(1, 1, 1, 1)
+_furStiffness = SubResource("Curve_t101j")
+_veloctyAffectFactor = 5.0
+_velocityReactionTimeAffect = 3.0
+
+[node name="FurTargets" type="Node3D" parent="."]
+
+[node name="TestDisplay" type="MeshInstance3D" parent="FurTargets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
+mesh = SubResource("PlaneMesh_1rno5")
+skeleton = NodePath("")
+
+[node name="kindred_lol_rig_strip" parent="FurTargets" instance=ExtResource("4_lqpjp")]
+transform = Transform3D(0.695, 0, 0, 0, 0.695, 0, 0, 0, 0.695, 0, -1.2, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FurTargets/kindred_lol_rig_strip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.11604, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FurTargets/kindred_lol_rig_strip/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.314039, 0)
+shape = SubResource("CapsuleShape3D_6w4nn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d6eud")
+}
+script = ExtResource("5_lguf5")
+
+[node name="BouncyFurBalls" type="Node3D" parent="."]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="BouncyFurBalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75169, 0, -1.78182)
+script = ExtResource("3_l014l")
+_shellHeight = 0.3
+_shellCount = 64.0
+_furMaterial = SubResource("ShaderMaterial_ckbix")
+_furBaseColour = Color(0.560784, 0, 0.184314, 1)
+_furTipColour = Color(0, 0.490196, 0.556863, 1)
+_furStiffness = SubResource("Curve_d1ri6")
+_veloctyAffectFactor = 5.0
+_velocityReactionTimeAffect = 3.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BouncyFurBalls/RigidBody3D"]
+mesh = SubResource("BoxMesh_psvs0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncyFurBalls/RigidBody3D"]
+shape = SubResource("ConvexPolygonShape3D_gmpbg")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="BouncyFurBalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93216, 0, -1.89337)
+script = ExtResource("3_l014l")
+_shellHeight = 0.3
+_shellCount = 64.0
+_furMaterial = SubResource("ShaderMaterial_p4v3i")
+_furBaseColour = Color(0, 0.882353, 0.92549, 1)
+_furTipColour = Color(0.972549, 0.909804, 0.94902, 1)
+_furStiffness = SubResource("Curve_eyl04")
+_veloctyAffectFactor = 5.0
+_velocityReactionTimeAffect = 3.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BouncyFurBalls/RigidBody3D2"]
+mesh = SubResource("BoxMesh_l4j0v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncyFurBalls/RigidBody3D2"]
+shape = SubResource("ConvexPolygonShape3D_gmpbg")
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="BouncyFurBalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21593, 0, 1.9698)
+script = ExtResource("3_l014l")
+_shellHeight = 0.3
+_shellCount = 64.0
+_furMaterial = SubResource("ShaderMaterial_62c11")
+_furBaseColour = Color(0.270588, 0.898039, 0.678431, 1)
+_furTipColour = Color(0.313726, 0.176471, 0.0980392, 1)
+_furStiffness = SubResource("Curve_suv88")
+_veloctyAffectFactor = 5.0
+_velocityReactionTimeAffect = 3.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BouncyFurBalls/RigidBody3D3"]
+mesh = SubResource("BoxMesh_hdtaw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncyFurBalls/RigidBody3D3"]
+shape = SubResource("ConvexPolygonShape3D_gmpbg")
+
+[node name="kindred_lol_rig_strip" parent="." instance=ExtResource("4_lqpjp")]
+transform = Transform3D(0.779054, 0, -0.626957, 0, 1, 0, 0.626957, 0, 0.779054, 6.85305, 0, -3.82974)
+script = ExtResource("3_l014l")
+_shellCount = 64.0
+_surfaceTargets = PackedInt32Array(0, 1)
+_furMaterial = SubResource("ShaderMaterial_wesij")
+_furBaseColour = Color(1, 1, 1, 1)
+_furTipColour = Color(1, 1, 1, 1)
+_furStiffness = SubResource("Curve_mekxr")
+_veloctyAffectFactor = 5.0
+_velocityReactionTimeAffect = 3.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 31.0
+offset_top = 18.0
+offset_right = 309.0
+offset_bottom = 109.0
+text = "FPS : 999"
+label_settings = SubResource("LabelSettings_xlwkm")
+script = ExtResource("9_iaia7")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="HFlowContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Move Camera: Left Click Drag"
+label_settings = SubResource("LabelSettings_rmy41")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Zoom: Scroll Mouse Wheel"
+label_settings = SubResource("LabelSettings_rmy41")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Move Character: Right Click Drag"
+label_settings = SubResource("LabelSettings_rmy41")
+horizontal_alignment = 1

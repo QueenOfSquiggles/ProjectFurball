@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bf08b84yxe83k"]
+
+[ext_resource type="Shader" path="res://assets/materials/furry_material.gdshader" id="1_u8xw0"]
+[ext_resource type="Texture2D" uid="uid://x52im03hlhsp" path="res://assets/fuzzy_fur_gradient.tres" id="2_u01ag"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_u8xw0")
+shader_parameter/density = 512.0
+shader_parameter/taper_power = 1.5
+shader_parameter/test_geometry = false
+shader_parameter/taper_alpha = ExtResource("2_u01ag")
