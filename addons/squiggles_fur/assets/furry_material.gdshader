@@ -1,13 +1,21 @@
 shader_type spatial;
-render_mode cull_back, depth_draw_always;
+render_mode cull_disabled, depth_draw_always;
 // render_mode alpha_to_coverage;// cull_disabled;//, depth_draw_always;//, alpha_to_coverage_and_one;
 
+group_uniforms strands;
 uniform float density = 16.0;
 uniform float taper_power = 2.0;
 uniform bool test_geometry = false;
+uniform sampler2D fur_texture : hint_default_white;
 
 // a gradient 1D texture where the red channel is the alpha of the strand along the length
 uniform sampler2D taper_alpha : hint_default_white;
+
+group_uniforms pbr_data;
+uniform float pbr_metalness = 0.0;
+uniform float pbr_roughness = 0.5;
+
+
 
 instance uniform float shell_depth;
 instance uniform vec4 base_col = vec4(0.0);
@@ -29,8 +37,14 @@ float hash12(vec2 p)
 
 
 void fragment() {
-	ALBEDO = mix(base_col.rgb, tip_col.rgb, shell_depth);
-	ALPHA = texture(taper_alpha, vec2(shell_depth, 0)).r;
+	vec4 fur_tex = texture(fur_texture, UV);
+	ALBEDO = fur_tex.rgb * mix(base_col.rgb, tip_col.rgb, shell_depth);
+	ALPHA = texture(taper_alpha, vec2(shell_depth, 0)).r * fur_tex.a;
+	if (ALPHA < 0.1) {
+		discard;
+	}
+	ROUGHNESS = pbr_roughness;
+	METALLIC = pbr_metalness;
 	if (!test_geometry) {
 		vec2 hashUV = floor(UV * density);
 		vec2 cellUV = abs(fract((UV * density) - hashUV) - 0.5) * 2.0;
